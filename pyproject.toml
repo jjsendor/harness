@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "coding-harness"
+version = "0.1.0"
+description = "A local Python coding agent with LangChain and Langfuse"
+requires-python = ">=3.11"
+dependencies = [
+  "langchain>=1.0,<2",
+  "langchain-openai>=1.0,<2",
+  "langgraph>=1.0,<2",
+  "langgraph-checkpoint-sqlite>=3.0,<4",
+  "langfuse>=3.0,<6",
+  "pydantic-settings>=2.0,<3",
+  "pytest>=8,<10",
+]
+
+[project.scripts]
+harness = "coding_harness.cli:main"
+
+[dependency-groups]
+dev = ["ruff>=0.14,<1"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/coding_harness"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
